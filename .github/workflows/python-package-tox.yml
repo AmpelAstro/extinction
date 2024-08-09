@@ -5,24 +5,25 @@ name: Python package
 
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
 
 jobs:
-  build:
+  test:
 
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.5, 3.8]
+        python: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+      fail-fast: false
+
+    runs-on: ${{ matrix.python <= '3.6' && 'ubuntu-20.04' || 'ubuntu-22.04' }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+          allow-prereleases: true
       - name: Install Tox and any other packages
         run: pip install tox
       - name: Run Tox
