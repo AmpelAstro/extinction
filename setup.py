@@ -42,6 +42,7 @@ setup(
     version=version,
     description="Fast interstellar dust extinction laws",
     long_description="documentation: http://extinction.readthedocs.io",
+    long_description_content_type="text/plain",
     license="MIT",
     classifiers=classifiers,
     url="http://github.com/kbarbary/extinction",
